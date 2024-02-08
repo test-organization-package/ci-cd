@@ -1,0 +1,20 @@
+name: Running container docker rigistry of backend
+
+on:
+    push:
+        paths-ignore:
+            - 'fend/**'
+            - '.github/workflows/main-fend.yml'
+
+
+jobs:
+    run-bend-in-docker:
+        runs-on: ${{ vars.RUNS_ON }}
+        container:
+            image: ghcr.io/test-organization-package/bend:1.0
+            credentials:
+                username: ${{ vars.USERNAME }}
+                password: ${{ vars.PACKAGE_TOKEN}}
+        steps:
+            - name: Step 1
+              run: echo "This is step 1, replace this with your command"
