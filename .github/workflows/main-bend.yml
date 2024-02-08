@@ -15,3 +15,6 @@ jobs:
             credentials:
                 username: ${{ vars.USERNAME }}
                 password: ${{ vars.PACKAGE_TOKEN}}
+        steps:
+            - name: Step 1
+              run: echo "This is step 1, replace this with your command"

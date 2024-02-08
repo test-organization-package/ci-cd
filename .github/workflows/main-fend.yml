@@ -1,1 +1,17 @@
+name: Running container docker rigistry of frontend
 
+on:
+    push:
+        paths-ignore:
+            - 'ci-cd-bend/**'
+            - '.github/workflows/main-bend.yml'
+
+
+jobs:
+    run-bend-in-docker:
+        runs-on: ${{ vars.RUNS_ON }}
+        container:
+            image: ghcr.io/test-organization-package/fend:1.0
+            credentials:
+                username: ${{ vars.USERNAME }}
+                password: ${{ vars.PACKAGE_TOKEN}}
