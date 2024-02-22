@@ -16,7 +16,9 @@ jobs:
         run: echo "${{ secrets.AWS_PRIVATE_KEY }}" > aws_private_key.pem
 
       - name: Connect to SSH
-        run: ssh -T -i "aws_private_key.pem" "${{ secrets.USERNAME_NAME }}"@"${{ secrets.DNS_NAME }}"
+        run: |
+          cat aws_private_key.pem
+          ssh -T -i "aws_private_key.pem" "${{ secrets.USERNAME_NAME }}"@"${{ secrets.DNS_NAME }}"
 
       - name: Stop running docker containers and delete them
         run: |
