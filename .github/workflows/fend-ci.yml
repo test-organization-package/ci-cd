@@ -12,7 +12,7 @@ jobs:
 
       - name: Build image
         run: |
-          echo "${{ secrets.PACKAGE_TOKEN }}" | docker login ghcr.io -u "${{ secrets.USERNAME }}" --password-stdin &&
+          echo "${{ secrets.PACKAGE_TOKEN }}" | docker login ghcr.io --username "${{ secrets.USERNAME }}" --password-stdin &&
           docker build . --file fend/Dockerfile --tag ghcr.io/test-organization-package/fend:latest &&
           docker push ghcr.io/test-organization-package/fend:latest
   run-testcases:
