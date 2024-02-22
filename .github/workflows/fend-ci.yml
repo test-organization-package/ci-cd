@@ -6,7 +6,7 @@ on:
 defaults:
   run:
     shell: bash
-    working-directory: ./my-directory
+    working-directory: fend
 
 jobs:
   build-image:
