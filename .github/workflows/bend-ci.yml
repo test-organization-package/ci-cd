@@ -1,0 +1,29 @@
+name: fend cd
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'fend/**'
+      - '.github/workflows/bend-ci.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add a private key to pem file
+        run: echo "${{ secrets.AWS_PRIVATE_KEY }}" > aws_private_key.pem
+
+      - name: Connect to SSH
+        run: ssh -i ".aws_private_key.pem" "${{ secrets.USERNAME_NAME }}"@"${{ secrets.DNS_NAME }}"
+
+      - name: Stop running docker containers and delete them
+        run: |
+          docker stop $(docker ps -q) &&
+          docker rm $(docker ps -aq)
+
+      - name: Pull the latest image and run container
+        run: |
+          docker pull ghcr.io/test-organization-package/fend:latest &&
+          docker run --name "first-deploy" -p 80:3000 ghcr.io/test-organization-package/fend:latest
