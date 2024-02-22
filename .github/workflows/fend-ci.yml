@@ -3,6 +3,11 @@ name: fend ci
 on:
   push
 
+defaults:
+  run:
+    shell: bash
+    working-directory: ./my-directory
+
 jobs:
   build-image:
     runs-on: ${{ vars.RUNS_ON }}
@@ -15,6 +20,7 @@ jobs:
           echo "${{ secrets.PACKAGE_TOKEN }}" | docker login ghcr.io --username "${{ vars.USERNAME }}" --password-stdin &&
           docker build . --file fend/Dockerfile --tag ghcr.io/test-organization-package/fend:latest &&
           docker push ghcr.io/test-organization-package/fend:latest
+
   run-testcases:
     runs-on: ${{ vars.RUNS_ON }}
     steps:
@@ -27,7 +33,7 @@ jobs:
           node-version: '16'
 
       - name: Install dependencies
-        run: npm install || true
+        run: npm install
 
       - name: Run tests
         run: npm test
