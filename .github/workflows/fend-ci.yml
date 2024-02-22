@@ -13,6 +13,9 @@ jobs:
       - name: Navigate to docker file
         run: cd fend
 
+      - name: check
+        run: ls -al 
+
       - name: Build image
         run: docker build . --file Dockerfile --tag ghcr.io/test-organization-package/fend:latest
 
@@ -25,7 +28,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install
