@@ -2,12 +2,8 @@ FROM node:14.20.0
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY . .
 
 RUN npm install
-
-COPY src/ ./src
-
-copy public/ ./public
 
 CMD ["npm", "start"]
