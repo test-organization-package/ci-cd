@@ -12,13 +12,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Add a private key to pem file
-        run: echo "${{ secrets.AWS_PRIVATE_KEY }}" > aws_private_key.pem
-
       - name: Connect to SSH
-        run: |
-          cat aws_private_key.pem
-          ssh -T -i "${{ secrets.AWS_PRIVATE_KEY }}" "${{ secrets.USERNAME_NAME }}"@"${{ secrets.DNS_NAME }}"
+        run: ssh -T -i "${{ secrets.AWS_PRIVATE_KEY }}" "${{ secrets.USERNAME_NAME }}"@"${{ secrets.DNS_NAME }}"
 
       - name: Stop running docker containers and delete them
         run: |
